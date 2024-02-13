@@ -8,14 +8,18 @@ import { UpdateProductDto } from './dto/updateProduct.dto';
 export class ProductService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getProducts(): Promise<Product[]> {
-    return await this.prismaService.product.findMany();
+  async getProducts(take: number, offset: number): Promise<Product[]> {
+    return await this.prismaService.product.findMany({ skip: offset, take });
   }
 
   async getProduct(id: number): Promise<Product> {
     return await this.prismaService.product.findFirstOrThrow({
       where: { id },
     });
+  }
+
+  async getProductsCount() {
+    return await this.prismaService.product.count();
   }
 
   async addProduct({

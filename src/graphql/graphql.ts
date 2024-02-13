@@ -23,8 +23,9 @@ export interface UpdateProductInput {
 }
 
 export interface IQuery {
-    getProducts(): Nullable<Product[]> | Promise<Nullable<Product[]>>;
+    getProducts(take?: Nullable<number>, offset?: Nullable<number>): Product[] | Promise<Product[]>;
     getProduct(id: string): Product | Promise<Product>;
+    getProductsCount(): number | Promise<number>;
 }
 
 export interface IMutation {
